@@ -1,0 +1,4 @@
+*.py linguist-detectable=True
+*.py linguist-language=Python
+
+*.ipynb linguist-generated
