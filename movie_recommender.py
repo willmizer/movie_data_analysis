@@ -78,8 +78,8 @@ def get_unique_genres(df):
 unique_genres = get_unique_genres(df)
 
 # ---------------- UI ----------------
-st.title("🎬 MovieMatch AI — Personalized Movie Recommendations")
-st.caption("Crafted for film lovers. Built for discovery.")
+st.title("🎬 MovieMatch AI — Beta")
+st.caption("Built for discovery.")
 
 col1, col2 = st.columns([3, 1])
 with col1:
@@ -92,7 +92,7 @@ suggestions = (filtered_titles['title'] + " (" + filtered_titles['year'].astype(
 
 if suggestions.any() and typed_title.strip():
     selected_suggestion = st.selectbox("Select your movie:", suggestions.tolist(), key="suggestbox")
-    if st.button("🎯 Get Recommendations"):
+    if st.button("Get Recommendations"):
         title_part, year_part = selected_suggestion.rsplit(" (", 1)
         year_part = int(year_part.strip(")"))
         matched_row = df[(df['title'] == title_part) & (df['year'] == year_part)]
@@ -115,7 +115,7 @@ if st.session_state.get("confirmed") and st.session_state.get("selected_idx") is
             st.image(row['poster_url'], width=150)
             st.markdown(f"**{row['title']}** ({row['year']})")
             st.caption(f"⭐ {row['average_rating']:.2f} | 💰 {format_profit(row['profit_in_millions'])} | 🎭 {clean_genres(row['genres'])} | ⏱ {format_runtime(row.get('runtime', 'N/A'))}")
-            with st.expander("📖 Overview"):
+            with st.expander("Overview"):
                 st.markdown(row.get('overview', 'No description available.'))
             st.divider()
 
