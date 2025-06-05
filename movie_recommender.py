@@ -108,6 +108,7 @@ if st.session_state.get("confirmed") and st.session_state.get("selected_idx") is
 
     if st.session_state.exclude_genres:
         results = results[~results['genres'].apply(lambda g: any(ex in g for ex in st.session_state.exclude_genres))]
+    results = results.sort_values(by="average_rating", ascending=False)
 
     st.markdown(f"### Because you liked **{df.loc[st.session_state.selected_idx, 'title']} ({df.loc[st.session_state.selected_idx, 'year']})**")
     for _, row in results.head(5).iterrows():
