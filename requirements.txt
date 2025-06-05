@@ -1,0 +1,6 @@
+streamlit
+streamlit_js_eval
+pandas
+numpy
+scikit-learn
+
