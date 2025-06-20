@@ -11,13 +11,13 @@ A key goal of this system is to combine *semantic depth* (via natural language e
 
 | File                              | Description                                                                                          |
 | --------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| [`tmdb_scrape.py`](scraping/tmdb_scrape.py)           | Uses TMDb API to enrich movies with metadata, crew, keywords, and providers from IMDb IDs.         |
-| [`themes_scrape.py`](scraping/themes_scrape.py)       | Scrapes movie "Themes" from Letterboxd using slug-matching and HTML parsing.                        |
-| [`data_cleanup.ipynb`](notebooks/data_cleanup.ipynb)  | Cleans and merges all collected data for modeling (handles duplicates, NA values, joins, etc).      |
-| [`eda_clean.ipynb`](notebooks/eda_clean.ipynb)        | Explores dataset, filters out adult content, and prepares numeric/categorical columns.              |
-| [`model_prep.ipynb`](notebooks/model_prep.ipynb)      | Constructs full feature matrix using TF-IDF, SentenceTransformer embeddings, and normalized scaling. |
-| [`tuning_weights.py`](modeling/tuning_weights.py)     | Tunes feature weights using Optuna to improve recommendation precision@3.                           |
-| [`movie_recommender.py`](streamlit/movie_recommender.py) | Deployable Streamlit app with real-time recommendations and posters.                                |
+| [`movie_join.ipynb`](https://github.com/willmizer/movie_data_analysis/blob/main/merging_imdb/movie_join.ipynb)           | Uses TMDb API to enrich movies with metadata, crew, keywords, and providers from IMDb IDs.         |
+| [`tmdb_scrape.py`](https://github.com/willmizer/movie_data_analysis/blob/main/scraping/tmdb_scrape.py)           | Uses TMDb API to enrich movies with metadata, crew, keywords, and providers from IMDb IDs.         |
+| [`data_cleanup.ipynb`](https://github.com/willmizer/movie_data_analysis/blob/main/clean/data_cleanup.ipynb)  | Cleans and merges all collected data for modeling (handles duplicates, NA values, joins, etc).      |
+| [`eda_clean.ipynb`](https://github.com/willmizer/movie_data_analysis/blob/main/eda/eda_clean.ipynb)        | Explores dataset, filters out adult content, and prepares numeric/categorical columns.              |
+| [`model_prep.ipynb`](https://github.com/willmizer/movie_data_analysis/blob/main/modeling/model_prep.ipynb)      | Constructs full feature matrix using TF-IDF, SentenceTransformer embeddings, and normalized scaling. |
+| [`tuning_weights.py`](https://github.com/willmizer/movie_data_analysis/blob/main/modeling/tuning_weights.py)     | Tunes feature weights using Optuna to improve recommendation precision@3.                           |
+| [`movie_recommender.py`](https://github.com/willmizer/movie_data_analysis/blob/main/movie_recommender.py) | Deployable Streamlit app with real-time recommendations and posters.                                |
 
 ---
 
