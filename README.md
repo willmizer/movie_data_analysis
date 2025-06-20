@@ -40,13 +40,20 @@ MovieMatch AI recommends movies based on *what you liked*. Rather than relying o
 
 Core features include:
 
-- Scraping and enriching movie metadata using TMDb and Letterboxd
+- Scraping and enriching movie metadata using IMDb publicly available dataset and TMDbs public API pulls
 - Generating semantic embeddings using `SentenceTransformer`
 - Extracting high-signal features using TF-IDF and numerical normalization
 - Tuning a weighted feature fusion model for optimal similarity
 - Deploying a fast KNN-based recommendation engine
 - Serving results through an interactive Streamlit app
-
+  
+I went through a couple variations until I came up with something that I was happy about.
+- Different `SentenceTransformer' variations and different tuning methods were used.
+- Along with different tuning methods
+- I tried a content column as well that with all features per row combined and I used `SentenceTransformer` on that as well
+- I had also tried using different data sources and different features
+- Ultimately I decided with the proposed methods and they seemed to work the best
+  
 ---
 
 ## Data Collection
@@ -57,18 +64,15 @@ Scrapes metadata for each IMDb movie by using TMDb's API. Includes:
 - Keywords, spoken languages, production company, certification
 - Poster URLs for front-end display
 
-### `themes_scrape.py`  
-Uses BeautifulSoup to extract *themes* from Letterboxd genre pages using custom slug rules and fallbacks.
-
-All collected data is merged into a single dataset, `final_cleaned_tmdb.csv`.
+All collected data is merged into a single dataset, `combined_imdb_movies.csv`.
 
 ---
 
 ## Feature Engineering
 
-In `model_prep.ipynb`, we build the full feature matrix:
+In `model_prep.ipynb`, I build the full feature matrix:
 - **TF-IDF** vectors for genres, cast, themes, director, and collection
-- **Sentence embeddings** (`all-mpnet-base-v2`) for plot overview and keywords
+- **Sentence embeddings** (`all-mpnet-base-v2`) for plot overview and keywords (nuance values)
 - **Scaled numerical features**: log-runtime, log-budget, log-revenue, average rating, and vote count
 - **Weighted fusion** of all blocks using optimized parameters
 - **Dimensionality reduction** using TruncatedSVD (125 components)
