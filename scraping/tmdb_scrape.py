@@ -13,7 +13,7 @@ BASE_FIND_URL = "https://api.themoviedb.org/3/find/"
 BASE_MOVIE_URL = "https://api.themoviedb.org/3/movie/"
 BASE_SEARCH_URL = "https://api.themoviedb.org/3/search/movie"
 
-# --- Token Bucket Rate Limiter ---
+# rate limiter using token bucket algorithm
 class TokenBucket:
     def __init__(self, rate, per):
         self._capacity = rate
@@ -43,9 +43,9 @@ bucket = TokenBucket(rate=50, per=1)
 def limited_get(url, **kwargs):
     bucket.consume()
     return session.get(url, **kwargs)
-# --- end rate limiter ---
+# end rate limiter
 
-# --- HTTP session with retries ---
+# HTTP session with retry strategy
 retry_strategy = Retry(
     total=5,
     backoff_factor=1,
@@ -57,10 +57,10 @@ session = requests.Session()
 session.mount("http://", adapter)
 session.mount("https://", adapter)
 session.timeout = (5, 10)
-# ---
 
-# Read movie metadata
-df = pd.read_csv("cleaned_imdb_movies.csv")
+
+# read movie metadata
+df = pd.read_csv("combined_imdb_movies.csv")
 movie_metadata = df.set_index("tconst")[['primaryTitle','startYear']].to_dict('index')
 all_imdb_ids = df['tconst'].dropna().unique()
 
@@ -72,7 +72,7 @@ def increment_api_call_count():
     with api_call_lock:
         api_call_count += 1
 
-# Fetch details in one call using append_to_response
+# fetch details in one call using append_to_response
 def _fetch_movie_details(imdb_id, tmdb_id):
     try:
         url = (
@@ -135,10 +135,10 @@ def _fetch_movie_details(imdb_id, tmdb_id):
     except Exception as e:
         return {'imdb_id': imdb_id, 'error': str(e)}
 
-# Fetch TMDb ID then details
+# fetch tmdb id for a given imdb id
 def fetch_tmdb_data(imdb_id):
     meta = movie_metadata.get(imdb_id, {})
-    # Find by IMDb ID
+    # find by imdb id
     try:
         find_url = f"{BASE_FIND_URL}{imdb_id}?external_source=imdb_id&api_key={API_KEY}"
         increment_api_call_count()
