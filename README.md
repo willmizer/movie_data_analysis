@@ -88,3 +88,12 @@ Example best weights:
 ```python
 {'genres': 1.15, 'themes': 0.73, 'cast': 1.85, 'director': 2.63, 
  'collection': 3.91, 'overview': 1.99, 'keywords': 3.84, 'numeric': 0.83}
+```
+
+---
+
+## Future Improvements
+- Add feedback section on movie recommender
+- Explore more in EDA to try and uncover other important realationships that need to be implemented into modeling
+- Improve models with more tuning
+- Improve mobile ui design for movie match
