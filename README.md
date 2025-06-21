@@ -1,3 +1,46 @@
+**`unique_city_ids` Ex output**: 
+
+| city_name     | city_id | url                                                       |
+| ------------- | ------- | ---------------------------------------------------------- |
+| Abbs Valley   | 37317   | https://www.redfin.com/city/37317/VA/Abbs-Valley          |
+| Abingdon      | 22      | https://www.redfin.com/city/22/VA/Abingdon                |
+| Accomac       | 28      | https://www.redfin.com/city/28/VA/Accomac                 |
+| Aden          | 29022   | https://www.redfin.com/city/29022/VA/Aden                 |
+| Adwolf        | 21132   | https://www.redfin.com/city/21132/VA/Adwolf               |
+
+
+side by side 
+<table>
+  <tr>
+    <td align="center">
+      <img src="images/correlation_matrix1.png" width="400" alt="Correlation Matrix Before Cleaning"/>
+      <br><em>Before cleaning</em>
+    </td>
+    <td align="center">
+      <img src="images/correlation_matrix2.png" width="400" alt="Correlation Matrix After Cleaning"/>
+      <br><em>After cleaning</em>
+    </td>
+  </tr>
+</table>
+
+big main
+<div align="center">
+  <img src="images/price-sqft.png" width="1000" alt="price-sqft distribution"/>
+</div>
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+<div align="center">
+  <img src="images/price-sqft-chart.png" width="1000" alt="price-sqft correlation"/>
+</div>
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+<div align="center">
+  <img src="images/price-sqft-property_type.png" width="1000" alt="price-sqft by property type"/>
+</div>
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+<div align="center">
+  <img src="images/hoa-price-chart.png" width="1000" alt="HOA vs price"/>
+</div>
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 # **MovieMatch AI: Content-Based Movie Recommendation System** 
 ## [Try It Out!](https://movie-match-ai.streamlit.app/)
 
@@ -24,13 +67,15 @@ A key goal of this system is to combine *semantic depth* (via natural language e
 ## Table of Contents
 
 1. [Project Overview](#project-overview)  
-2. [Data Collection](#data-collection)  
-3. [Feature Engineering](#feature-engineering)  
-4. [Weight Tuning & Optimization](#weight-tuning--optimization)  
-5. [Modeling Pipeline](#modeling-pipeline)  
-6. [Streamlit Interface](#streamlit-interface)  
-7. [Key Results](#key-results)  
-8. [Future Improvements](#future-improvements)
+2. [Data Collection](#data-collection)
+3. [Data Clean](#data-clean)
+4. [Exploratory Data Analysis](#exploratory-data-analysis)
+5. [Feature Engineering](#feature-engineering)  
+6. [Weight Tuning & Optimization](#weight-tuning--optimization)  
+7. [Modeling Pipeline](#modeling-pipeline)  
+8. [Streamlit Interface](#streamlit-interface)  
+9. [Key Results](#key-results)  
+10. [Future Improvements](#future-improvements)
 
 ---
 
@@ -47,24 +92,123 @@ Core features include:
 - Deploying a fast KNN-based recommendation engine
 - Serving results through an interactive Streamlit app
   
-I went through a couple variations until I came up with something that I was happy about.
-- Different `SentenceTransformer' variations and different tuning methods were used.
+There were a lot of adjustments along the way:
+- Different `SentenceTransformer' models were used.
 - Along with different tuning methods
-- I tried a content column as well that with all features per row combined and I used `SentenceTransformer` on that as well
+- I tried a content column as well that contained all features per row combined. Then I used `SentenceTransformer` on it to predict movies from just one column
 - I had also tried using different data sources and different features
-- Ultimately I decided with the proposed methods and they seemed to work the best
+- Ultimately I decided with the proposed methods and what seemed to work the best
   
 ---
 
 ## Data Collection
 
+### `movie_join.ipynb`
+Downloaded IMDbs publicly available datasets and merged nessisary title and ratings files
+- Made sure IMDbs tconst ids were collected
+- made very broad cleaning descisons such as cutting off movies longer than 5 hours and shorter than 45 min to remove bulk
+
 ### `tmdb_scrape.py`  
-Scrapes metadata for each IMDb movie by using TMDb's API. Includes:
+Scrapes metadata for each IMDb movie using the tconst by using TMDb's API. Includes:
 - Title, release date, genre, budget, revenue, runtime, cast, director
 - Keywords, spoken languages, production company, certification
 - Poster URLs for front-end display
 
 All collected data is merged into a single dataset, `combined_imdb_movies.csv`.
+
+---
+
+## Data Clean
+
+The main files involved with cleaning are:
+
+| File Name                 | Description                                                                 |
+|--------------------------|-----------------------------------------------------------------------------|
+| `tmdb_movie_data_full.csv` | Contains enriched metadata from TMDb based on IMDb IDs                    |
+| `movie_themes.csv`         | Contains movie "themes", linked by title + slug.                          |
+| `final_tmdb.csv`           | Final cleaned dataset merged together combining the two sources, with added profit column. |
+
+---
+
+The main purpose of the clean was to standardize/remove and null values and ensure variables needed were available and fully ready for modeling
+
+## Final Output: `final_tmdb.csv`
+
+This is the result of merging all sources into a single, structured, and cleaned movie dataset.
+
+### Sample Columns
+
+| Column Name            | Description                                               |
+|------------------------|-----------------------------------------------------------|
+| `imdb_id`              | IMDb unique movie identifier (e.g., `tt0011237`)          |
+| `tmdb_id`              | TMDb movie ID                                             |
+| `title`                | Full movie title                                          |
+| `release_date`         | Date of original release                                  |
+| `genres`               | Comma-separated list of genres                            |
+| `revenue`, `budget`    | Financials (USD)                                          |
+| `runtime`              | Movie runtime in minutes                                  |
+| `vote_average`, `vote_count` | Rating score and number of votes                   |
+| `top_cast`, `director` | Main cast members and director(s)                         |
+| `keywords`, `themes`   | TMDb tags and scraped Letterboxd themes                   |
+| `spoken_languages`     | Languages spoken in the film                              |
+| `collection_name`      | If part of a franchise or collection                      |
+| `watch_providers`      | Platforms where the movie is available to stream          |
+| `poster_url`           | Direct link to poster image                               |
+| `overview`             | Plot summary                                              |
+| `profit_in_millions`   | Custom-calculated profit in millions (`revenue - budget`) |
+
+---
+
+## Exploratory Data Analysis
+
+This section represents the final cleaned and feature-enhanced dataset, outlier filtering, and log transformation of numerical variables. It is the last stage before creating the recommendation model.
+
+---
+
+## File: `final_cleaned_tmdb.csv`
+
+- **Log-transformed numeric fields** (for improved distribution and modeling)
+- **Data formating and null handling**
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="images/correlation_matrix1.png" width="400" alt="Correlation Matrix Before Cleaning"/>
+      <br><em>Before cleaning</em>
+    </td>
+    <td align="center">
+      <img src="images/correlation_matrix2.png" width="400" alt="Correlation Matrix After Cleaning"/>
+      <br><em>After cleaning</em>
+    </td>
+  </tr>
+</table>
+
+---
+
+## Key Columns
+
+| Column                | Description                                                                 |
+|-----------------------|-----------------------------------------------------------------------------|
+| `imdb_id`, `tmdb_id`  | Unique identifiers for linking across IMDb and TMDb                         |
+| `title`               | Movie title                                                                 |
+| `release_date`        | Official release date                                                       |
+| `genres`              | Comma-separated genres                                                      |
+| `revenue`, `budget`   | Raw financial values (USD)                                                  |
+| `runtime`             | Runtime in minutes                                                          |
+| `vote_average`        | TMDb average user rating                                                    |
+| `vote_count`          | TMDb vote count                                                             |
+| `top_cast`, `director`| Primary cast and directors                                                  |
+| `keywords`            | TMDb tags or keywords                                                       |
+| `themes`              | Letterboxd themes (pipe-separated)                                          |
+| `spoken_languages`    | Languages spoken in the film                                                |
+| `collection_name`     | Franchise or film series (if applicable)                                    |
+| `watch_providers`     | Streaming services available                                                |
+| `production_companies`| Main production studios                                                     |
+| `certification`       | Content rating (G, PG, R, etc.)                                             |
+| `overview`            | Plot synopsis                                                               |
+| `poster_url`          | Link to movie poster image                                                  |
+| `error`               | Any scrape/load errors (if present)                                         |
+| `profit_in_millions`  | Calculated as `(revenue - budget) / 1e6`                                    |
 
 ---
 
