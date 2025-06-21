@@ -18,7 +18,7 @@ This folder contains **3 core CSV files** used to create a unified movie metadat
 
 This is the result of merging all sources into a single, structured, and cleaned movie dataset.
 
-### 📊 Sample Columns
+### Sample Columns
 
 | Column Name            | Description                                               |
 |------------------------|-----------------------------------------------------------|
