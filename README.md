@@ -1,5 +1,5 @@
 # **MovieMatch AI: Content-Based Movie Recommendation System**
-## [Try It Out!](https://movie-match-ai.streamlit.app/)
+## [Try It Out!](https://movie-match-ai.streamlit.app/) (10 second wait if asleep)
 
 This project delivers an end-to-end pipeline for collecting, cleaning, tuning, and deploying movie metadata from TMDb and IMDb to build a personalized recommendation engine. Designed to provide intelligent movie suggestions based on content similarity, the system uses sentence embeddings, TF-IDF features, and structured metadata combined with optimized feature weighting and a KNN backend to recommend films similar to those users already love.
 
