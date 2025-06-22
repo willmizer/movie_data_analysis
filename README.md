@@ -126,7 +126,9 @@ This stage included:
 - Log transformation of skewed numerical fields
 - Final formatting and null-handling
 
-### File: `final_cleaned_tmdb.csv`
+---
+
+#### `Log Transforming Values for better Distribution Understanding`
 
 - Log-transformed `budget`, `revenue`, `runtime`, and `vote_count`
 - Formatted features for clean input to model
@@ -135,12 +137,71 @@ This stage included:
 <table>
   <tr>
     <td align="center">
-      <img src="images/Screenshot%202025-06-21%20161957.png" width="400" alt="Before Cleaning"/>
+      <img src="images/Screenshot%202025-06-21%20161957.png" width="500" alt="Before Cleaning"/>
       <br><em>Before cleaning</em>
     </td>
     <td align="center">
-      <img src="images/after_log.png" width="400" alt="After Log Transformation"/>
+      <img src="images/after_log.png" width="500" alt="After Log Transformation"/>
       <br><em>After cleaning</em>
+    </td>
+  </tr>
+</table>
+
+---
+
+#### `Revenue and Budget Correlation`
+
+- Budget seemed to have a tighter window of values, indicating there was a standard that most movies use in regard to it
+- Revenue had a broader spread, indicating that movie earnings varied widely — while some films earn just enough to recoup costs, others generate massive profits, resulting in a longer right tail in the distribution.
+
+<div align="center">
+  <img src="images/rev_budg_dist.png" width="1000" alt="revenue vs budget distribution"/>
+</div>
+
+---
+
+#### `Vote count and Runtime vs Vote Average`
+
+- Vote count and vote average chart have a correlation of 0.44, this indicates a moderately weak relationship between the two variables
+- This suggests that while viewer engagement does reflect a movie’s performance to some extent, the connection is not as strong as one might assume
+
+- A slight positive correlation is shown for Runtime and vote average, implying that longer runtimes are weakly associated with higher average ratings
+- This makes sense as most longer films tend to be more narrative driven and have more time to develop, explaining why there is a realationship between the two
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="images/runtime_votavg_corr.png" width="500" alt="runtime vs vote average correlation"/>
+      <br><em>Runtime vs Vote Average Correlation</em>
+    </td>
+    <td align="center">
+      <img src="images/vote_count_avg_corr.png" width="500" alt="vote count and vote average correlation"/>
+      <br><em>Vote Count and Vote Average Correlation</em>
+    </td>
+  </tr>
+</table>
+
+---
+
+#### `Themes and Genre Counts`
+
+- Crude Humor and Satire tops the themes category indicating popularity for comedic content
+- However, I need to keep in m ind that I am missing a lot of themes, making the category less realiable
+- Understanding this helps me later when picking weights for modeling
+
+- Genres dont contain any missing values so it makes it a much more realiable choiuce when trying to understand the distribution of tones throughout the data
+- Drama and Comedy dominate the top 10 indicating the broad appeal of both over a wide range of audiences
+- Thriller and Horror also appear a lot, this might be because these genres tend to be more easily made compared to action or sci-fi allowing for more of them to appear throughout
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="images/top_appeared_themes.png" width="500" alt="top appeared themes"/>
+      <br><em>Top 10 Appearing Themes</em>
+    </td>
+    <td align="center">
+      <img src="images/top_appeared_genres.png" width="500" alt="top appeared genres"/>
+      <br><em>Top 10 Appearing Genres</em>
     </td>
   </tr>
 </table>
