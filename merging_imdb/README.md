@@ -1,8 +1,8 @@
 # IMDb Dataset Merge: Basics + Ratings
 
 We take two key IMDb data sources:
-- `title.basics.tsv` — Core movie metadata
-- `title.ratings.tsv` — Rating and vote counts
+- `title.basics.tsv`: Core movie metadata
+- `title.ratings.tsv`: Rating and vote counts
 
 
 ---
@@ -48,13 +48,13 @@ We take two key IMDb data sources:
 
 ## Cleaned Fields Included
 
-- `tconst` — IMDb title ID
-- `primaryTitle` — Movie title
-- `startYear` — Release year
-- `runtimeMinutes` — Duration in minutes
-- `genres` — Comma-separated list of genres
-- `averageRating` — IMDb average user score (0–10)
-- `numVotes` — Number of user votes
+- `tconst`: IMDb title ID
+- `primaryTitle`: Movie title
+- `startYear`: Release year
+- `runtimeMinutes`: Duration in minutes
+- `genres`: Comma-separated list of genres
+- `averageRating`: IMDb average user score (0–10)
+- `numVotes`: Number of user votes
 
 > These fields won't mean much to us after we pull from tmdb other than the tconst field but it was useful to pull all of the information for some early filtering
 ---
