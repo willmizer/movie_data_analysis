@@ -94,6 +94,14 @@ pip install -r requirements.txt
 streamlit run movie_recommender.py
 ```
 
+## Limitations
+
+- Precision@3 was measured on the same ~40 seed films used to tune the feature weights; performance on unseen movie types may be lower.
+- Purely content-based — no collaborative filtering or user preference signal; two structurally similar films can feel tonally very different to a specific viewer.
+- Films with sparse or low-quality metadata (niche releases, foreign titles with limited TMDb coverage, older catalogue titles) will produce weaker recommendations.
+- Letterboxd theme data had significant missing values and was treated as a lower-weight feature as a result.
+- No mechanism to avoid "franchise bubbles" — a film may recommend primarily other entries in the same series even when thematic similarity across franchises would better serve the user.
+
 ## Future Improvements
 
 - Add a feedback mechanism on the recommender so users can rate suggestions.
