@@ -49,8 +49,9 @@ Rather than relying on collaborative filtering or user reviews, MovieMatch analy
 
 ## Key Results
 
-- Increased recommendation accuracy by roughly 3.5x, from about 10% to over 35% precision@3, by switching from TF-IDF-only matching to SentenceTransformer embeddings plus Optuna-tuned feature weights.
-- Built a weighted hybrid recommendation engine combining semantic and structured data across 8 feature components via cosine similarity.
+- **Precision@3** — the share of the top 3 recommendations that match a manually selected relevant film — improved from ~10% to 35%+, a ~3.5x lift, after switching from TF-IDF-only features to SentenceTransformer semantic embeddings with Optuna-tuned feature weights. Evaluated against ~40 hand-curated seed films, each paired with 5–7 expert-selected relevant titles.
+- Feature weights were tuned with Optuna (500 trials, TPE sampler) to maximize precision@3 on that same evaluation set; the reported improvement reflects performance on the tuning set — results on unseen seed films may vary.
+- Built a weighted hybrid recommendation engine combining semantic and structured data across 8 feature components (genres, themes, cast, director, collection, overview, keywords, numeric) via cosine similarity.
 - Cleaned and unified over 70,000 movie records from IMDb, TMDb, and Letterboxd into one enriched dataset.
 - Reduced high-dimensional embeddings with TruncatedSVD for an efficient, responsive KNN backend.
 - Deployed as an interactive Streamlit app where users enter a movie and get personalized recommendations with metadata and posters in real time.

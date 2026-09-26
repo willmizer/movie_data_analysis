@@ -117,11 +117,11 @@ ground_truth = {
     ],
     "Black Swan": [
         "Perfect Blue", "Requiem for a Dream", "Whiplash", "The Machinist", "Enemy",
-        "The Night House"
+        "The Night House", "Gone Girl"
     ],
     "Arrival": [
         "Interstellar", "Contact", "The Fountain", "Children of Men", "Midnight Special",
-        "The Midnight Sky"
+        "The Midnight Sky", "Ad Astra", "The Man from Earth", "The Signal"
     ],
     "Annihilation": [
         "Stalker", "Solaris", "The Signal", "The Vast of Night", "Beyond the Black Rainbow",
@@ -145,7 +145,7 @@ ground_truth = {
     ],
     "Ex Machina": [
         "Annihilation", "Blade Runner 2049", "The Machine", "Tau", "Transcendence",
-        "I Am Mother"
+        "I Am Mother", "Her", "Upgrade", "Automata"
     ],
     "The Fountain": [
         "The Tree of Life", "Cloud Atlas", "2001: A Space Odyssey", "Another Earth", "Solaris",
@@ -170,9 +170,6 @@ ground_truth = {
         "Eternal Sunshine of the Spotless Mind", "Her", "Pleasantville", "The Secret Life of Walter Mitty", "Big Fish",
         "Synecdoche, New York"
     ],
-    "Black Swan": [
-        "Requiem for a Dream", "Whiplash", "Perfect Blue", "Gone Girl", "The Machinist"
-    ],
     "Joker": [
         "Taxi Driver", "You Were Never Really Here", "American Psycho", "Nightcrawler", "Fight Club",
         "The King of Comedy"
@@ -180,14 +177,6 @@ ground_truth = {
     "The Grand Budapest Hotel": [
         "The Royal Tenenbaums", "Moonrise Kingdom", "Amélie", "The Darjeeling Limited", "Fantastic Mr. Fox",
         "The French Dispatch"
-    ],
-    "Ex Machina": [
-        "Annihilation", "Blade Runner 2049", "Her", "Upgrade", "I Am Mother",
-        "Automata"
-    ],
-    "Arrival": [
-        "Interstellar", "Contact", "The Midnight Sky", "Ad Astra", "The Man from Earth",
-        "The Signal"
     ],
     "Shutter Island": [
         "The Sixth Sense", "Prisoners", "The Others", "Mystic River", "Gone Baby Gone",
