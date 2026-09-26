@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import requests
 from tqdm import tqdm
@@ -8,7 +9,9 @@ import threading
 import gc
 from requests.adapters import HTTPAdapter, Retry
 
-API_KEY = '124f5ace47354f3dacc11b0b3c024c7a'
+API_KEY = os.environ.get('TMDB_API_KEY')
+if not API_KEY:
+    raise ValueError("TMDB_API_KEY environment variable not set")
 BASE_FIND_URL = "https://api.themoviedb.org/3/find/"
 BASE_MOVIE_URL = "https://api.themoviedb.org/3/movie/"
 BASE_SEARCH_URL = "https://api.themoviedb.org/3/search/movie"

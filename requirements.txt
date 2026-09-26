@@ -3,4 +3,8 @@ streamlit_js_eval
 pandas
 numpy
 scikit-learn
+sentence-transformers
+optuna
+tqdm
+requests
 
