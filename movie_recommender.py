@@ -5,6 +5,8 @@ import joblib
 import numpy as np
 import streamlit as st
 
+from theme import apply_theme
+
 # paths
 BASE_DIR             = os.path.dirname(__file__)
 MODELS_DIR           = os.path.join(BASE_DIR, "models")
@@ -15,6 +17,7 @@ DF_PATH              = os.path.join(MODELS_DIR, "movies_df.pkl.gz")  # gzipped D
 # page config
 st.set_page_config(
     page_title="MovieMatch AI",
+    page_icon=os.path.join(os.path.dirname(__file__), "favicon.png"),
     layout="centered",
     initial_sidebar_state="collapsed"
 )
@@ -64,6 +67,7 @@ def fmt_runtime(x):
         return "N/A"
 
 # styling (mobile-first)
+apply_theme(stack_columns=False)
 st.markdown("""
 <style>
 #MainMenu, footer, [data-testid="stSidebar"], [data-testid="collapsedControl"] {display: none;}
