@@ -15,7 +15,6 @@ DF_PATH              = os.path.join(MODELS_DIR, "movies_df.pkl.gz")  # gzipped D
 # page config
 st.set_page_config(
     page_title="MovieMatch AI",
-    page_icon="🎬",
     layout="centered",
     initial_sidebar_state="collapsed"
 )
@@ -68,8 +67,8 @@ def fmt_runtime(x):
 st.markdown("""
 <style>
 #MainMenu, footer, [data-testid="stSidebar"], [data-testid="collapsedControl"] {display: none;}
-.block-container {max-width: 760px; padding: 2rem 1rem 3rem;}
-.hero h1 {font-size: 2.2rem; margin: 0; padding: 0; line-height: 1.15;}
+.block-container {max-width: 760px; padding: 4.5rem 1rem 3rem;}
+.hero h1 {font-size: 2.2rem; margin: 0; padding: .25rem 0; line-height: 1.25;}
 .hero p {opacity: .75; margin: .35rem 0 1.25rem;}
 .rec-title {font-size: 1.1rem; font-weight: 700; margin: 0 0 .15rem;}
 .rec-year {opacity: .6; font-weight: 400;}
@@ -80,7 +79,7 @@ div[data-testid="stForm"] {border: none; padding: 0;}
 .stButton button, .stFormSubmitButton button {width: 100%; min-height: 2.9rem; border-radius: 10px;}
 div[data-testid="stVerticalBlockBorderWrapper"] {border-radius: 14px;}
 @media (max-width: 640px) {
-  .block-container {padding: 1rem .75rem 2rem;}
+  .block-container {padding: 4rem .75rem 2rem;}
   .hero h1 {font-size: 1.7rem;}
   /* keep poster + details side by side on phones instead of stacking */
   div[data-testid="stHorizontalBlock"] {flex-wrap: nowrap !important; gap: .75rem;}
@@ -92,7 +91,7 @@ div[data-testid="stVerticalBlockBorderWrapper"] {border-radius: 14px;}
 
 # header
 st.markdown(
-    '<div class="hero"><h1>🎬 MovieMatch AI</h1>'
+    '<div class="hero"><h1>MovieMatch AI</h1>'
     '<p>Tell us a movie you love. We\'ll find what to watch next.</p></div>',
     unsafe_allow_html=True,
 )
@@ -120,8 +119,8 @@ def render_rec(row):
                 f"<div class='rec-title'>{row['title']} "
                 f"<span class='rec-year'>({row['year']})</span></div>"
                 f"<div class='stats'>⭐ {row['vote_average']:.1f} &nbsp;·&nbsp; "
-                f"💰 {fmt_profit(row.get('profit_in_millions'))} &nbsp;·&nbsp; "
-                f"⏱ {fmt_runtime(row.get('runtime', ''))}</div>"
+                f"<b>Profit</b> {fmt_profit(row.get('profit_in_millions'))} &nbsp;·&nbsp; "
+                f"<b>Runtime</b> {fmt_runtime(row.get('runtime', ''))}</div>"
                 "<div class='chips'>"
                 + "".join(f"<span class='chip'>{g.strip()}</span>" for g in row['genres_list'])
                 + "</div>",
